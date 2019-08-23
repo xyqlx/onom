@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -44,7 +45,15 @@ namespace Xyqlx.OneNote
         }
         public static void UpdatePage(Page page)
         {
-            application.UpdatePageContent(page.ToString());
+            try
+            {
+                application.UpdatePageContent(page.ToString());
+            }catch(Exception ex)
+            {
+                page.Fix(ex);
+                application.UpdatePageContent(page.ToString());
+            }
+            
         }
         public static void UpdateSection(Section section)
         {

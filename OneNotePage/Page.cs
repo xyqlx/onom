@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -84,6 +85,28 @@ namespace Xyqlx.OneNote
                         list.Add("\n");
                     }
                 return string.Join(string.Empty, list);
+            }
+        }
+        /// <summary>
+        /// 试着修复一些内容上的错误
+        /// </summary>
+        public void Fix(Exception exception)
+        {
+            if(exception.HResult == (int)Microsoft.Office.Interop.OneNote.Error.hrInvalidXML)
+            {
+                foreach (var outline in root.Elements(one + "Outline"))
+                {
+                    var indents = outline.Element(one + "Indents");
+                    if(indents != null)
+                    {
+                        foreach(var indent in indents.Elements())
+                        {
+                            string s = indent.Attribute("indent").Value;
+                            if (s.Contains("E"))
+                                indent.Attribute("indent").Value = "0.0";
+                        }
+                    }
+                }
             }
         }
         /// <summary>
