@@ -42,6 +42,7 @@ namespace Xyqlx.OneNote
             get => int.Parse(root.Attribute("pageLevel").Value);
             set => root.Attribute("pageLevel").Value = value.ToString();
         }
+        
         /// <summary>
         /// 返回去除了所有ID的副本
         /// </summary>

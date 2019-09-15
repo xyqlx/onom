@@ -70,6 +70,10 @@ namespace Xyqlx.OneNote
                     dateTime.Value = value.ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
             }
         }
+        public void Open(bool newWindow = false)
+        {
+            App.application.NavigateTo(this.ID);
+        }
         public override string ToString()
         {
             return root.ToString();
