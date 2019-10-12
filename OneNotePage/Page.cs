@@ -81,7 +81,7 @@ namespace Xyqlx.OneNote
                 foreach (var outline in root.Elements(one + "Outline"))
                     foreach (var oe in outline.Element(one + "OEChildren").Elements(one + "OE"))
                     {
-                        foreach (var t in oe.Elements(one + "T"))
+                        foreach (var t in oe.Descendants(one + "T"))
                             list.Add(Regex.Replace(t.Value.Replace('\n', ' '), "<[^>]*>", string.Empty));
                         list.Add("\n");
                     }

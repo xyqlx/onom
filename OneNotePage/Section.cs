@@ -124,7 +124,8 @@ namespace Xyqlx.OneNote
 
         public void Clear()
         {
-            App.application.DeleteHierarchy(section.ID);
+            foreach (var page in section.PageInfos)
+                App.application.DeleteHierarchy(page.ID);
             section.root.RemoveNodes();
             Update();
         }

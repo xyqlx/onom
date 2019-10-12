@@ -40,6 +40,8 @@ namespace Xyqlx.OneNote
         }
         public static Page GetPage(string id)
         {
+            if (id == null || id.Length == 0)
+                return new Page("untitled", 0);
             application.GetPageContent(id, out string xml, Microsoft.Office.Interop.OneNote.PageInfo.piBasic);
             return new Page(xml);
         }
