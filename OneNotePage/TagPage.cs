@@ -59,7 +59,7 @@ namespace Xyqlx.OneNote
             this.page = page;
             if (!page.metaData.ContainsKey("tags"))
                 page.metaData.Add("tags", "");
-            tags = new HashSet<string>(page.metaData["tags"].Split(';').Where(x => x != ""));
+            tags = new HashSet<string>(page.metaData["tags"].Split(';').Where(x => !String.IsNullOrEmpty(x)));
         }
 
         private void Update()

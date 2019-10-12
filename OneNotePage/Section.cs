@@ -138,7 +138,7 @@ namespace Xyqlx.OneNote
         public bool Contains(Page item)
         {
             string id = item.ID;
-            if (id != "")
+            if (id.Length != 0)
                 return section.PageInfos.Any(x => x.ID == id);
             else
             {
@@ -149,7 +149,18 @@ namespace Xyqlx.OneNote
 
         public void CopyTo(Page[] array, int arrayIndex)
         {
-            array = this.Skip(arrayIndex).ToArray();
+            if (array is null)
+                throw new System.ArgumentNullException();
+            if (arrayIndex < 0)
+                throw new System.ArgumentOutOfRangeException();
+            int desArrayIndex = 0;
+            int maxArrayIndex = array.Length;
+            foreach(var page in this.Skip(arrayIndex))
+            {
+                if (desArrayIndex == maxArrayIndex)
+                    throw new System.ArgumentException("array is not enough to copy in");
+                array[desArrayIndex++] = page;
+            }
         }
 
         public IEnumerator<Page> GetEnumerator()
